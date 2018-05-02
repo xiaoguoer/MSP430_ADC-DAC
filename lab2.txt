@@ -1,0 +1,15 @@
+//lab2.c
+#include <msp430.h>
+int main(void)
+{
+  WDTCTL = WDTPW + WDTHOLD;       // Stop watchdog timer
+  P1DIR |= BIT0;                      // Set P1.0 to output direction
+  P1REN |= BIT1;    //  P1.1脚上下拉电阻使能
+  P1OUT |= BIT1;    //  P1.1脚使用上拉电阻
+ while (1) {
+    if (P1IN & BIT1)  // Test P1.1 
+      P1OUT |= BIT0;                        // if P1.1 set, set P1.0
+    else
+      P1OUT &= ~BIT0;                       // else reset
+  }
+}
